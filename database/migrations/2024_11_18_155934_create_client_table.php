@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('destination', function (Blueprint $table) {
-            $table->bigIncrements('dest_id');
-            $table->string('dest_destination');
-            $table->timestamps(); // Optional
+        Schema::create('client', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
         });
     }
 
@@ -23,7 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::drop('destination');
-        
+        Schema::dropIfExists('client');
     }
 };

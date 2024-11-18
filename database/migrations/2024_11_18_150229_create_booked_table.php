@@ -22,12 +22,12 @@ return new class extends Migration
             $table->string('gender');
             $table->date('book_departure');
             $table->string('book_tracker');
-            $table->unsignedBigInteger('dest_id');
+            
             $table->unsignedBigInteger('acc_id');
             $table->unsignedBigInteger('origin_id');
             
         
-          $table->foreign('dest_id')->references('dest_id')->on('destination');
+          
             $table->foreign('acc_id')->references('acc_id')->on('accomodation');
             $table->foreign('origin_id')->references('origin_id')->on('origin');  
             

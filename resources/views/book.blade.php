@@ -28,6 +28,10 @@
                         <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">4</div>
                         <div class="ml-2 text-gray-700">CONFIRMATION</div>
                     </div>
+                    <div class="flex items-center">
+                        <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">5</div>
+                        <div class="ml-2 text-gray-700">PAYMENT INFO</div>
+                    </div>
                 </div>
             </div>
             
@@ -107,7 +111,29 @@
                     <h2 class="text-2xl font-semibold mb-4">Step 4: CONFIRMATION</h2>
                     <p class="mb-4">Please review your information before submitting.</p>
                     <button type="button" class="prevStep bg-gray-600 text-white px-4 py-2 rounded-lg">Previous</button>
-                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg">Submit</button>
+                    <button type="button" class="nextStep bg-indigo-600 text-white px-4 py-2 rounded-lg">Next</button>
+                </div>
+                <!-- Step 5 -->
+                <div class="step hidden">
+                    <h2 class="text-2xl font-semibold mb-4">Step 5: PAYMENT INFO</h2>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold">Cardholder Name</label>
+                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Cardholder Name">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold">Card Number</label>
+                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Card Number">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold">Expiration Date</label>
+                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="MM/YY">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 font-bold">CVV</label>
+                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter CVV">
+                    </div>
+                    <button type="button" class="prevStep bg-gray-600 text-white px-4 py-2 rounded-lg mt-4">Previous</button>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg mt-4">Submit</button>
                 </div>
             </form>
         </div>

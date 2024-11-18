@@ -20,7 +20,6 @@ return new class extends Migration
             $table->string('trans_gender', 15);
             $table->unsignedBigInteger('acc_id');
             $table->unsignedBigInteger('origin_id');
-            $table->unsignedBigInteger('dest_id');
             $table->unsignedBigInteger('stat_id')->default(1);
             $table->boolean('trans_refunded')->default(0);
             $table->timestamps();
@@ -28,7 +27,6 @@ return new class extends Migration
             // Foreign Keys
             $table->foreign('acc_id')->references('acc_id')->on('accomodation');
             $table->foreign('origin_id')->references('origin_id')->on('origin');
-            $table->foreign('dest_id')->references('dest_id')->on('destination');
             $table->foreign('stat_id')->references('stat_id')->on('status');
         });
     }
