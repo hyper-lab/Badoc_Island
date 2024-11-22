@@ -10,6 +10,9 @@
 </head>
 
 <!-- Section 1 -->
+<header>
+
+
 <section class="w-full px-9 text-gray-700 bg-white">
     <div class="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
         <div class="relative flex flex-col md:flex-row">
@@ -20,7 +23,7 @@
                 <a href="#_" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Home</a>
                 <a href="#_" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Features</a>
                 <a href="#_" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Pricing</a>
-                <a href="#_" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Blog</a>
+                <a href="#section3" class="mr-5 font-medium leading-6 text-gray-600 hover:text-gray-900">Blog</a>
             </nav>
         </div>
 
@@ -35,3 +38,4 @@
     </div>
 </section>
 
+</header>

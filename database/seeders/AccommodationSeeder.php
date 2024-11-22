@@ -1,32 +1,30 @@
 <?php
-
+// database/seeders/AccommodationSeeder.php
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
+use App\Models\Accommodation;
 
 class AccommodationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        DB::table('accomodation')->insert([
-            [
-                'acc_type' => 'Local Tourist',
-                'acc_price' => 350.00,
-                'acc_slot' => 30,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
-                'acc_type' => 'Foreign Tourist',
-                'acc_price' => 500.00,
-                'acc_slot' => 20,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
+        Accommodation::create([
+            'acc_type' => 'Single Room',
+            'acc_slot' => 1,
+            'acc_price' => 1000.00
+        ]);
+
+        Accommodation::create([
+            'acc_type' => 'Double Room',
+            'acc_slot' => 2,
+            'acc_price' => 1800.00
+        ]);
+
+        Accommodation::create([
+            'acc_type' => 'Family Room',
+            'acc_slot' => 4,
+            'acc_price' => 3500.00
         ]);
     }
 }

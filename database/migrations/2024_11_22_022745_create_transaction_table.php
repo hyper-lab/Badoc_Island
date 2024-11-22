@@ -19,15 +19,12 @@ return new class extends Migration
             $table->integer('trans_age');
             $table->string('trans_gender', 15);
             $table->unsignedBigInteger('acc_id');
-            $table->unsignedBigInteger('origin_id');
-            $table->unsignedBigInteger('stat_id')->default(1);
             $table->boolean('trans_refunded')->default(0);
             $table->timestamps();
 
             // Foreign Keys
-            $table->foreign('acc_id')->references('acc_id')->on('accomodation');
-            $table->foreign('origin_id')->references('origin_id')->on('origin');
-            $table->foreign('stat_id')->references('stat_id')->on('status');
+            $table->foreign('acc_id')->references('acc_id')->on('accommodations');
+        
         });
     }
 
