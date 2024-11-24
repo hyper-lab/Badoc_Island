@@ -9,7 +9,7 @@ class CreateBookedTable extends Migration
     public function up()
     {
         Schema::create('booked', function (Blueprint $table) {
-            $table->id(); // This creates an unsigned big integer primary key
+            $table->id();
             $table->string('booking_id')->unique();
             $table->string('book_by');
             $table->date('book_departure');
@@ -17,6 +17,7 @@ class CreateBookedTable extends Migration
             $table->string('book_address');
             $table->string('book_email');
             $table->unsignedBigInteger('accommodation_id')->nullable();
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

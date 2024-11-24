@@ -14,4 +14,11 @@ class Accommodation extends Model
     protected $fillable = [
         'acc_type', 'acc_slot', 'acc_price'
     ];
+
+    public function decrementSlot()
+    {
+        if ($this->acc_slot > 0) {
+            $this->decrement('acc_slot');
+        }
+    }
 }

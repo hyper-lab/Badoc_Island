@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Accommodation;
 use App\Models\Booked;
 use App\Models\Client;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use PDF;
@@ -28,10 +29,10 @@ class ReservationController extends Controller
             'num_clients' => 'required|integer|min:1',
         ]);
 
-        // Generate a unique booking ID
-        $booking_id = Str::uuid()->toString();
+        // Generate a unique booking ID with 11 characters
+        $booking_id = Str::random(11);
 
-        // Save the data
+        // Save the booking data
         $booked = Booked::create([
             'booking_id' => $booking_id,
             'book_by' => $request->input('book_by'),
@@ -62,6 +63,14 @@ class ReservationController extends Controller
             'accommodation' => 'required|exists:accommodations,acc_id',
         ]);
 
+        // Retrieve the selected accommodation
+        $accommodation = Accommodation::find($request->input('accommodation'));
+
+        // Check if the accommodation has available slots
+        if ($accommodation->acc_slot <= 0) {
+            return redirect()->back()->withErrors(['accommodation' => 'The selected accommodation is fully booked. Please choose another one.']);
+        }
+
         // Retrieve the booked ID from the session
         $booked_id = $request->session()->get('booked_id');
 
@@ -69,6 +78,24 @@ class ReservationController extends Controller
         $booked = Booked::find($booked_id);
         $booked->accommodation_id = $request->input('accommodation');
         $booked->save();
+
+        // Decrement the slot count for the selected accommodation
+        $accommodation->decrementSlot();
+
+        // Calculate the total payment
+        $num_clients = $request->session()->get('num_clients');
+        $total_payment = $accommodation->acc_price * $num_clients;
+
+        // Generate a unique transaction ID
+        $transaction_id = Str::uuid()->toString();
+
+        // Save the transaction data
+        Transaction::create([
+            'transaction_id' => $transaction_id,
+            'booked_id' => $booked->id,
+            'amount' => $total_payment, // Store the total payment
+            'status' => 'pending',
+        ]);
 
         // Redirect to the client information step
         return redirect()->route('Reservation.step-three');

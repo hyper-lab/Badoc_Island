@@ -3,216 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Step-by-Step Form</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title>Booked Reservations</title>
 </head>
 <body class="bg-gray-100">
-    <div class="container mx-auto p-4 sm:p-6 lg:p-10">
-        <div class="bg-white p-6 rounded-lg shadow-lg">
-            <!-- Step Indicator Header -->
-            <div class="mb-6">
-                <div class="flex justify-between items-center">
-                    <div class="flex items-center">
-                        <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-indigo-600 text-white">1</div>
-                        <div class="ml-2 text-gray-700">ITINERARY</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">2</div>
-                        <div class="ml-2 text-gray-700">ACCOMMODATION</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">3</div>
-                        <div class="ml-2 text-gray-700">RESERVATION DETAILS</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">4</div>
-                        <div class="ml-2 text-gray-700">CONFIRMATION</div>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="step-indicator w-8 h-8 flex items-center justify-center rounded-full bg-gray-300 text-gray-700">5</div>
-                        <div class="ml-2 text-gray-700">PAYMENT INFO</div>
-                    </div>
+    <div class="min-h-screen flex flex-col py-12 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-6xl mx-auto mt-8">
+            <h2 class="text-3xl font-semibold mb-6 text-center text-indigo-600">Booked Reservations</h2>
+            @if (session('success'))
+                <div class="mb-4 text-green-600">
+                    {{ session('success') }}
                 </div>
+            @endif
+            <div class="mb-4">
+                <form method="GET" action="{{ route('admin.booked') }}">
+                    <div class="flex space-x-4">
+                        <input type="text" name="search" placeholder="Search by Booking ID, Booked By, or Client Name" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" value="{{ request('search') }}">
+                        <select name="status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                            <option value="all" {{ request('status') == 'all' ? 'selected' : '' }}>All</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                            <option value="declined" {{ request('status') == 'declined' ? 'selected' : '' }}>Declined</option>
+                        </select>
+                        <button type="submit" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Search</button>
+                    </div>
+                </form>
             </div>
-            
-            <form id="multiStepForm">
-                <!-- Step 1 -->
-                <div class="step">
-                    <h2 class="text-2xl font-semibold mb-4">Step 1: ITINERARY</h2>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Location: Badoc Ilocos Norte</label>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Destination: Badoc Water Park</label>
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Select Date</label>
-                        <input type="text" id="datePicker" class="w-full px-3 py-2 border rounded-lg" placeholder="Select a date">
-                    </div>
-                    <button type="button" class="nextStep bg-indigo-600 text-white px-4 py-2 rounded-lg">Next</button>
-                </div>
-                <!-- Step 2 -->
-                <div class="step hidden">
-                    <h2 class="text-2xl font-semibold mb-4">Step 2: ACCOMMODATION</h2>
-                    <table class="min-w-full bg-white">
-                        <thead>
+            <div class="overflow-x-auto">
+                <table class="min-w-full bg-white border border-gray-200">
+                    <thead>
+                        <tr>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booking ID</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Booked By</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Departure Date</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Accommodation</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Clients</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="py-2 px-4 border-b bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach ($bookings as $booking)
                             <tr>
-                                <th class="py-2 px-4 border-b">Select</th>
-                                <th class="py-2 px-4 border-b">Accommodation</th>
-                                <th class="py-2 px-4 border-b">Slots</th>
-                                <th class="py-2 px-4 border-b">Price (individual)</th>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">{{ $booking->booking_id }}</td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">{{ $booking->book_by }}</td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">{{ $booking->book_email }}</td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">{{ $booking->book_departure }}</td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">{{ $booking->book_contact }}</td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">
+                                    {{ $booking->accommodation ? $booking->accommodation->acc_type : 'N/A' }}
+                                </td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">
+                                    <ul>
+                                        @foreach ($booking->clients as $client)
+                                            <li>{{ $client->client_name }}</li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">{{ $booking->status }}</td>
+                                <td class="py-2 px-4 border-b text-sm text-gray-700">
+                                    <form method="POST" action="{{ route('admin.booked.approve', $booking->id) }}" class="inline-block">
+                                        @csrf
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-700">Approve</button>
+                                    </form>
+                                    <form method="POST" action="{{ route('admin.booked.decline', $booking->id) }}" class="inline-block">
+                                        @csrf
+                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-700">Decline</button>
+                                    </form>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($accommodations as $accommodation)
-                                <tr>
-                                    <td class="py-2 px-4 border-b text-center">
-                                        <input type="radio" name="accommodation" value="{{ $accommodation->acc_id }}">
-                                    </td>
-                                    <td class="py-2 px-4 border-b">{{ $accommodation->acc_type }}</td>
-                                    <td class="py-2 px-4 border-b text-center">{{ $accommodation->acc_slot }}</td>
-                                    <td class="py-2 px-4 border-b text-center">₱{{ $accommodation->acc_price }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    <button type="button" class="prevStep bg-gray-600 text-white px-4 py-2 rounded-lg mt-4">Previous</button>
-                    <button type="button" class="nextStep bg-indigo-600 text-white px-4 py-2 rounded-lg mt-4">Next</button>
-                </div>
-                <!-- Step 3 -->
-                <div class="step hidden">
-                    <h2 class="text-2xl font-semibold mb-4">Step 3: RESERVATOR INFO</h2>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Booked By</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter First Name and Last Name">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Contact</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Contact">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Address</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Address">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Email</label>
-                        <input type="email" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Email">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Number of Clients</label>
-                        <input type="number" id="numClients" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Number of Clients">
-                    </div>
-                    <div id="clientForms"></div>
-                    <button type="button" class="prevStep bg-gray-600 text-white px-4 py-2 rounded-lg mt-4">Previous</button>
-                    <button type="button" class="nextStep bg-indigo-600 text-white px-4 py-2 rounded-lg mt-4">Next</button>
-                </div>
-                <!-- Step 4 -->
-                <div class="step hidden">
-                    <h2 class="text-2xl font-semibold mb-4">Step 4: CONFIRMATION</h2>
-                    <p class="mb-4">Please review your information before submitting.</p>
-                    <button type="button" class="prevStep bg-gray-600 text-white px-4 py-2 rounded-lg">Previous</button>
-                    <button type="button" class="nextStep bg-indigo-600 text-white px-4 py-2 rounded-lg">Next</button>
-                </div>
-                <!-- Step 5 -->
-                <div class="step hidden">
-                    <h2 class="text-2xl font-semibold mb-4">Step 5: PAYMENT INFO</h2>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Cardholder Name</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Cardholder Name">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Card Number</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Card Number">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">Expiration Date</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="MM/YY">
-                    </div>
-                    <div class="mb-4">
-                        <label class="block text-gray-700 font-bold">CVV</label>
-                        <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter CVV">
-                    </div>
-                    <button type="button" class="prevStep bg-gray-600 text-white px-4 py-2 rounded-lg mt-4">Previous</button>
-                    <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded-lg mt-4">Submit</button>
-                </div>
-            </form>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const steps = document.querySelectorAll('.step');
-            const stepIndicators = document.querySelectorAll('.step-indicator');
-            let currentStep = 0;
-
-            function showStep(step) {
-                steps.forEach((stepElement, index) => {
-                    stepElement.classList.toggle('hidden', index !== step);
-                });
-                stepIndicators.forEach((indicator, index) => {
-                    if (index <= step) {
-                        indicator.classList.add('bg-indigo-600', 'text-white');
-                        indicator.classList.remove('bg-gray-300', 'text-gray-700');
-                    } else {
-                        indicator.classList.add('bg-gray-300', 'text-gray-700');
-                        indicator.classList.remove('bg-indigo-600', 'text-white');
-                    }
-                });
-            }
-
-            document.querySelectorAll('.nextStep').forEach(button => {
-                button.addEventListener('click', () => {
-                    if (currentStep < steps.length - 1) {
-                        currentStep++;
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            document.querySelectorAll('.prevStep').forEach(button => {
-                button.addEventListener('click', () => {
-                    if (currentStep > 0) {
-                        currentStep--;
-                        showStep(currentStep);
-                    }
-                });
-            });
-
-            // Generate client forms based on the number of clients
-            document.getElementById('numClients').addEventListener('input', function () {
-                const numClients = parseInt(this.value);
-                const clientFormsContainer = document.getElementById('clientForms');
-                clientFormsContainer.innerHTML = '';
-
-                for (let i = 1; i <= numClients; i++) {
-                    const clientForm = document.createElement('div');
-                    clientForm.classList.add('mb-4');
-                    clientForm.innerHTML = `
-                        <h2 class="text-2xl font-semibold mb-4">Client(${i})</h2>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-bold">Full Name</label>
-                            <input type="text" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Fullname">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-bold">Age</label>
-                            <input type="number" class="w-full px-3 py-2 border rounded-lg" placeholder="Enter Age">
-                        </div>
-                        <div class="mb-4">
-                            <label class="block text-gray-700 font-bold">Gender</label>
-                            <select class="w-full px-3 py-2 border rounded-lg">
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                    `;
-                    clientFormsContainer.appendChild(clientForm);
-                }
-            });
-
-            showStep(currentStep);
-        });
-    </script>
 </body>
 </html>

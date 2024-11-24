@@ -9,10 +9,10 @@ class Booked extends Model
 {
     use HasFactory;
 
-    protected $table = 'booked';
+    protected $table = 'booked'; // Specify the correct table name
 
     protected $fillable = [
-        'booking_id', 'book_by', 'book_departure', 'book_contact', 'book_address', 'book_email', 'accommodation_id'
+        'booking_id', 'book_by', 'book_departure', 'book_contact', 'book_address', 'book_email', 'accommodation_id', 'status'
     ];
 
     public function accommodation()
@@ -23,5 +23,17 @@ class Booked extends Model
     public function clients()
     {
         return $this->hasMany(Client::class, 'booked_id', 'id');
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
+
+    public function calculateTotalPayment()
+    {
+        $accommodation = $this->accommodation;
+        $num_clients = $this->clients()->count();
+        return $accommodation ? $accommodation->acc_price * $num_clients : 0;
     }
 }

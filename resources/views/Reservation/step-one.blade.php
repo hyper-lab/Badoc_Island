@@ -1,10 +1,7 @@
 @include('reservation_partials.header')
-
 <body class="bg-gray-100">
-    
     <div class="min-h-screen flex items-center justify-center">
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-        
             <h2 class="text-3xl font-semibold mb-6 text-center text-indigo-600">Step 1: Reservation Info</h2>
             @if ($errors->any())
                 <div class="mb-4">
@@ -46,4 +43,4 @@
         </div>
     </div>
 </body>
-</html>
+@include('reservation_partials.footer')

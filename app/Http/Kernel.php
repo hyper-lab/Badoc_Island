@@ -10,6 +10,8 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+       'check.reservation.step' => \App\Http\Middleware\CheckReservationStep::class,
     ];
 
     protected $middlewareGroups = [
@@ -30,7 +32,10 @@ class Kernel extends HttpKernel
 
     protected $routeMiddleware = [
 
-        
-        'check.reservation.step' => \App\Http\Middleware\CheckReservationStep::class, // Add this line
+        'admin.logout' => \App\Http\Middleware\AdminLogoutMiddleware::class,
+      // 'check.reservation.step' => \App\Http\Middleware\CheckReservationStep::class, // Add this line
+    ];
+    protected $middlewareAliases = [
+       //  'check.reservation.step' => \App\Http\Middleware\CheckReservationStep::class,
     ];
 }

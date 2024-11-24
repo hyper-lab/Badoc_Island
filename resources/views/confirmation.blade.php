@@ -11,6 +11,7 @@
         <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
             <h2 class="text-3xl font-semibold mb-6 text-center text-indigo-600">Reservation Confirmation</h2>
             <div class="mb-4">
+                <p class="text-gray-700"><strong>Booked ID: </strong>{{$booked->booking_id}}</p>
                 <p class="text-gray-700"><strong>Booked By:</strong> {{ $booked->book_by }}</p>
                 <p class="text-gray-700"><strong>Departure Date:</strong> {{ $booked->book_departure }}</p>
                 <p class="text-gray-700"><strong>Contact:</strong> {{ $booked->book_contact }}</p>
@@ -23,11 +24,18 @@
                     <p class="text-gray-700"><strong>Client Age:</strong> {{ $client->client_age }}</p>
                     <p class="text-gray-700"><strong>Client Gender:</strong> {{ $client->client_gender }}</p>
                 @endforeach
+                <p>For Cancellation of Reservation, please contact us on Facebook and Email.</p>
             </div>
-            <P>For Cancelation of Reservation  Please contact us  on facebook and gmail</P>
-            <a href="{{ route('Reservation.step-one') }}" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Start Over</a>
+            
             <a href="{{ route('Reservation.confirmation.pdf') }}" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Download PDF</a>
+            <a href="{{ route('home') }}" onclick="return confirmDownload()" class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Back to Home</a>
         </div>
     </div>
+
+    <script>
+        function confirmDownload() {
+            return confirm('Did you download the PDF?');
+        }
+    </script>
 </body>
 </html>

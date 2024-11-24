@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+
 class CheckReservationStep
 {
     /**
@@ -15,7 +16,7 @@ class CheckReservationStep
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!$request->session()->has('booked_id')) {
+        if (!$request->session()->has('id')) {
             return redirect()->route('Reservation.step-one');
         }
 
