@@ -37,7 +37,7 @@
                     </div>
                 @endif
                 <div class="mb-4 text-xl font-semibold text-center text-gray-700">
-                    Total Income: ₱{{ number_format($totalIncome, 2) }}
+                    <!-- Total Income: ₱{{ number_format($totalIncome, 2) }} -->
                 </div>
                 <div class="overflow-x-auto">
                     <table class="min-w-full bg-white border border-gray-200">

@@ -11,7 +11,8 @@ Route::get('/', function () {
 
 Route::get('/Reservation/step-one', [ReservationController::class, 'stepOne'])->name('Reservation.step-one');
 Route::post('/Reservation/step-one', [ReservationController::class, 'stepOneStore'])->name('Reservation.step-one.store');
-
+Route::get('/Reservation/auth', [ReservationController::class, 'auth'])->name('Reservation.auth');
+Route::post('/Reservation/auth', [ReservationController::class, 'authStore'])->name('Reservation.auth.store');
 Route::middleware(['throttle'])->group(function () {
     Route::get('/Reservation/step-two', [ReservationController::class, 'stepTwo'])->name('Reservation.step-two');
     Route::post('/Reservation/step-two', [ReservationController::class, 'stepTwoStore'])->name('Reservation.step-two.store');

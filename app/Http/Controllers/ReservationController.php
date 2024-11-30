@@ -7,7 +7,9 @@ use App\Models\Booked;
 use App\Models\Client;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use App\Mail\AuthCodeMail;
 use PDF;
 
 class ReservationController extends Controller
@@ -26,8 +28,48 @@ class ReservationController extends Controller
             'book_contact' => 'required|string|max:255',
             'book_address' => 'required|string|max:255',
             'book_email' => 'required|email|max:255',
-            'num_clients' => 'required|integer|min:1',
+            'num_clients' => 'required|integer|min:1|max:20',
         ]);
+
+        // Generate a unique booking ID with 11 characters
+        $booking_id = Str::random(11);
+
+        // Generate a random authentication code
+        $auth_code = Str::random(6);
+
+        // Send the authentication code to the booker's email
+        Mail::to($request->input('book_email'))->send(new AuthCodeMail($auth_code));
+
+        // Store the booking data and authentication code in the session
+        $request->session()->put('booking_data', $request->all());
+        $request->session()->put('auth_code', $auth_code);
+
+        // Redirect to the authentication step
+        return redirect()->route('Reservation.auth');
+    }
+
+    public function auth()
+    {
+        return view('Reservation.auth');
+    }
+
+    public function authStore(Request $request)
+    {
+        // Validate the authentication code
+        $request->validate([
+            'auth_code' => 'required|string|max:6',
+        ]);
+
+        // Retrieve the authentication code from the session
+        $session_auth_code = $request->session()->get('auth_code');
+
+        // Check if the provided authentication code matches the session code
+        if ($request->input('auth_code') !== $session_auth_code) {
+            return redirect()->back()->withErrors(['auth_code' => 'Invalid authentication code.']);
+        }
+
+        // Retrieve the booking data from the session
+        $booking_data = $request->session()->get('booking_data');
 
         // Generate a unique booking ID with 11 characters
         $booking_id = Str::random(11);
@@ -35,16 +77,19 @@ class ReservationController extends Controller
         // Save the booking data
         $booked = Booked::create([
             'booking_id' => $booking_id,
-            'book_by' => $request->input('book_by'),
-            'book_departure' => $request->input('book_departure'),
-            'book_contact' => $request->input('book_contact'),
-            'book_address' => $request->input('book_address'),
-            'book_email' => $request->input('book_email'),
+            'book_by' => $booking_data['book_by'],
+            'book_departure' => $booking_data['book_departure'],
+            'book_contact' => $booking_data['book_contact'],
+            'book_address' => $booking_data['book_address'],
+            'book_email' => $booking_data['book_email'],
         ]);
 
         // Store the booked ID and number of clients in the session
         $request->session()->put('booked_id', $booked->id);
-        $request->session()->put('num_clients', $request->input('num_clients'));
+        $request->session()->put('num_clients', $booking_data['num_clients']);
+
+        // Clear the authentication code from the session
+        $request->session()->forget('auth_code');
 
         // Redirect to the next step
         return redirect()->route('Reservation.step-two');
