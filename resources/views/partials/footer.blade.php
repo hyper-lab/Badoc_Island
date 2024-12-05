@@ -4,7 +4,7 @@
         <div class="flex flex-wrap justify-between">
             <div class="w-full md:w-1/3 mb-6 md:mb-0">
                 <h2 class="text-2xl font-semibold mb-4">About Us</h2>
-                <p class="text-gray-400">Badoc Water Park is a premier destination for family fun and relaxation. Enjoy our water slides, lazy river, and wave pool.</p>
+                <p class="text-gray-400">Paoay Lake Water Park is a premier destination for family fun and relaxation. Enjoy our water slides, lazy river, and wave pool.</p>
             </div>  
             <div class="w-full md:w-1/3 mb-6 md:mb-0">
                 <h2 class="text-2xl font-semibold mb-4">Quick Links</h2>
@@ -17,13 +17,13 @@
             </div>
             <div class="w-full md:w-1/3">
                 <h2 class="text-2xl font-semibold mb-4">Contact Us</h2>
-                <p class="text-gray-400">123 Water Park Road, Badoc, Philippines</p>
+                <p class="text-gray-400">123 Water Park Road, Paoay Lake, Philippines</p>
                 <p class="text-gray-400">Email: zionpanitan44@gmail.com</p>
                 <p class="text-gray-400">Phone: +63 123 456 7890</p>
             </div>
         </div>
         <div class="mt-8 border-t border-gray-700 pt-4 text-center">
-            <p class="text-gray-400">&copy; 2024 Badoc Water Park. All rights reserved.</p>
+            <p class="text-gray-400">&copy; 2024 Paoay Lake Water Park. All rights reserved.</p>
             <div class="flex justify-center mt-4">
                 <a href="#" class="text-gray-400 hover:text-white mx-2">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">

@@ -1,7 +1,7 @@
 <!-- Footer Section -->
 <footer class="bg-gray-800 text-white py-5">
         <div class="mt-8 border-t border-gray-700 pt-4 text-center">
-            <p class="text-gray-400">&copy; 2024 Badoc Water Park. All rights reserved.</p>
+            <p class="text-gray-400">&copy; 2024 Paoay Lake Water Park. All rights reserved.</p>
             <div class="flex justify-center mt-4">
                 <a href="#" class="text-gray-400 hover:text-white mx-2">
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
