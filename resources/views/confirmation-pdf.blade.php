@@ -45,6 +45,7 @@
             <h2>Reservation Confirmation</h2>
         </div>
         <div class="content">
+            <p><strong>Booking ID:</strong> {{ $booked->booking_id }}</p>
             <p><strong>Booked By:</strong> {{ $booked->book_by }}</p>
             <p><strong>Departure Date:</strong> {{ $booked->book_departure }}</p>
             <p><strong>Contact:</strong> {{ $booked->book_contact }}</p>
